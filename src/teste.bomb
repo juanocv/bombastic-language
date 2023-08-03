@@ -1,0 +1,18 @@
+begin
+    num a, b;
+    txt t1;
+
+    read(a);
+    read(b);
+
+    a = 1.567;
+    b = 1.568;
+
+    when (a>b) {
+        write(a);
+    }
+    otherwise{
+        write(b);
+    }
+
+end;
