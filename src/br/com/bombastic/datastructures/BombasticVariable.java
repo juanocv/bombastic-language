@@ -14,6 +14,7 @@ public class BombasticVariable extends BombasticSymbol{
         this.type = type;
         this.value = value;
     }
+    
 
     @Override
     public String toString() {

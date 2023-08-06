@@ -61,6 +61,7 @@ grammar Bombastic;
     }         
 }
 
+
 prog    : 'begin'    decl    bloco    'end'
             { 
                 program.setVarTable(symbolTable);

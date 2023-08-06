@@ -8,6 +8,7 @@ begin
     read(a);
     read(b);
 
+
     b = 10;
     t1 = "texto";
     c = 't';
