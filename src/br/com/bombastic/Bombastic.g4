@@ -44,11 +44,14 @@ grammar Bombastic;
         }
     }
     public void verificaAtr(String id){
-			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-	       if (var.getValue() == null){
-	            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
-	        }
-	    }
+				BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+				if (var == null){
+					return;
+				}
+		       if (var.getValue() == null){
+		            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
+		        }
+		    }
 
     public void exibeComandos(){
         for(AbstractCommand c: program.getComandos()){
