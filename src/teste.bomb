@@ -1,12 +1,21 @@
 begin
     num a, b;
+    num unused;
+
     txt t1;
+    char c;
 
     read(a);
     read(b);
 
-    a = 1.567;
-    b = 1.568;
+
+    b = 10;
+    t1 = "texto";
+    c = 't';
+
+    write(t1);
+    write(c);
+    
 
     when (a>b) {
         write(a);
@@ -14,5 +23,6 @@ begin
     otherwise{
         write(b);
     }
+    
 
 end;

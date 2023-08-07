@@ -4,6 +4,7 @@ public class BombasticVariable extends BombasticSymbol{
 
     public static final int NUMBER=0;
     public static int TEXT=1;
+    public static int CHAR=2;
     
     private int type;
     private String value;
@@ -13,6 +14,7 @@ public class BombasticVariable extends BombasticSymbol{
         this.type = type;
         this.value = value;
     }
+    
 
     @Override
     public String toString() {
@@ -24,8 +26,11 @@ public class BombasticVariable extends BombasticSymbol{
         if (type == NUMBER) {
             str = "double";
         }
-        else {
+        else if (type == TEXT) {
             str = "String";
+        }
+        else{
+            str = "char";
         }
         return str + " " +super.name+ ";";
     }
@@ -40,6 +45,13 @@ public class BombasticVariable extends BombasticSymbol{
 
     public static void setTEXT(int tEXT) {
         TEXT = tEXT;
+    }
+    public static int getCHAR() {
+        return CHAR;
+    }
+
+    public static void setCHAR(int cHAR) {
+        CHAR = cHAR;
     }
 
     public int getType() {
