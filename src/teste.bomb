@@ -1,5 +1,5 @@
 begin
-    num a, b;
+    num a, b, i;
     num unused;
 
     txt t1;
@@ -7,10 +7,11 @@ begin
 
     read(a);
     read(b);
-
-
+	
+	i = 0;
+	a =1 ;
     b = 10;
-    t1 = "texto";
+    t1 = "teste";
     c = 't';
 
     write(t1);
@@ -24,5 +25,13 @@ begin
         write(b);
     }
     
-
+    enquanto(i<3){
+    	write(i);
+        i=i+1;
+	}
+    	
+	faca{ 
+        write(i);
+        i=i+1;
+    }enquanto (i<3);
 end;
