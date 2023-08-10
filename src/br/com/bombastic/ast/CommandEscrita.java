@@ -11,11 +11,21 @@ public class CommandEscrita extends AbstractCommand {
     @Override
     public String generateJavaCode() {
         // TODO
-        return "\t\tSystem.out.println("+id+");\n";
+        return "System.out.println("+id+");\n";
     }
-
+    
+    
+    @Override
+	public String generateJSCode() {
+		return "console.log("+id+");\n";
+	}
+    
     @Override
     public String toString() {
         return "CommandEscrita [id=" + id + "]";
     }
+
+	
+	
+	
 }

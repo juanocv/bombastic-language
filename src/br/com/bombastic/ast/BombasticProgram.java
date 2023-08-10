@@ -12,7 +12,7 @@ public class BombasticProgram {
     private ArrayList<AbstractCommand> comandos;
     private String programName;
 
-    public void generateTarget() {
+    public void generateTargetJava() {
         StringBuilder str = new StringBuilder();
         str.append("import java.util.Scanner;\n\n");
         str.append("public class MainTestClass{ \n");
@@ -35,7 +35,27 @@ public class BombasticProgram {
             ex.printStackTrace();
         }
     }
-
+    
+    public void generateTargetJS() {
+        StringBuilder str = new StringBuilder();        
+        
+        for (BombasticSymbol symbol: varTable.getAll()) {
+            str.append("\t\t"+symbol.generateJSCode()+"\n");
+        }
+        
+        for (AbstractCommand command: comandos) {
+            str.append("\t\t"+command.generateJSCode()+"\n");
+        }
+        
+        try {
+            FileWriter fr = new FileWriter(new File("src/MainTestClass.js"));
+            fr.write(str.toString());
+            fr.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public BombasticSymbolTable getVarTable() {
         return varTable;
     }

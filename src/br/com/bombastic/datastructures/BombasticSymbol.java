@@ -5,6 +5,7 @@ public abstract class BombasticSymbol {
     protected String name;
 
     public abstract String generateJavaCode();
+    public abstract String generateJSCode();
     
     public BombasticSymbol(String name) {
         this.name = name;

@@ -17,7 +17,13 @@ public class CommandLeitura extends AbstractCommand {
         // TODO
         return id + " = key." + (var.getType()==BombasticVariable.NUMBER? "nextDouble();": "nextLine();");
     }
+    
+	@Override
+	public String generateJSCode() {				
+		return  id + " = prompt(" +"'Digite valor de "+id+"');";		
+	}
 
+    
     @Override
     public String toString() {
         return "CommandLeitura [id=" + id + ", var=" + var + "]";
