@@ -21,22 +21,47 @@ public class CommandRepeticao extends AbstractCommand {
         if (isDoWhile) {
             str.append("do {\n");
             for (AbstractCommand cmd : listaLoop) {
+            	str.append("\t\t\t");
                 str.append(cmd.generateJavaCode());
             }
-            str.append("\n\t\t\t\t\n} while (" + condition + ");\n");
+            str.append("\n\t\t} while (" + condition + ");\n");
         } else {
             str.append("while (" + condition + ") {\n");
             for (AbstractCommand cmd : listaLoop) {
-                str.append(cmd.generateJavaCode() + "\t\t");
+            	str.append("\t\t\t");
+                str.append(cmd.generateJavaCode());
+            }
+            str.append("\n\t\t}\n");            
+        }
+        
+        return str.toString();
+    }
+    
+	@Override
+	public String generateJSCode() {
+		StringBuilder str = new StringBuilder();        
+        if (isDoWhile) {
+            str.append("do {\n");            
+            for (AbstractCommand cmd : listaLoop) {
+            	str.append("\t\t\t");
+                str.append(cmd.generateJSCode());
+            }
+            str.append("\n\t\t} while (" + condition + ");\n");
+        } else {            
+        	str.append("while (" + condition + ") {\n");            
+            for (AbstractCommand cmd : listaLoop) {    
+            	str.append("\t\t\t");
+                str.append(cmd.generateJSCode());
             }
             str.append("\n\t\t}\n");
         }
         
         return str.toString();
-    }
-
+	}
+    
     @Override
     public String toString() {
         return "CommandRepeticao [condition=" + condition + ", listaLoop=" + listaLoop + "]";
     }
+
 }
