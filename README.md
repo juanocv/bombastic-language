@@ -16,7 +16,7 @@ Itens Obrigatórios (Nota C)
 10. Verificar se uma variável está sendo usada sem ter valor inicial [X]
 
 Itens Opcionais 
-ITEM                                               Complexidade
+ITEM		                                               Complexidade
 1. Editor Highlight (simulando uma pequena IDE)     3
 2. Avaliador de expressões aritméticas              3
 3. Inserção de Operadores lógicos                   2
@@ -25,8 +25,8 @@ ITEM                                               Complexidade
 6. Um Interpretador (runtime) para a linguagem      5
 
 A nota irá aumentar segundo o critério
-De C para B —> itens cuja somatória das complexidades seja pelo menos 7
-De C para A —> itens cuja somatória das complexidades seja pelo menos 10
+.De C para B —> itens cuja somatória das complexidades seja pelo menos 7
+.De C para A —> itens cuja somatória das complexidades seja pelo menos 10
 
 ## Como realizar o teste?
 
