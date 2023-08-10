@@ -17,12 +17,12 @@ Itens Obrigatórios (Nota C)
 
 Itens Opcionais 
 ITEM                                               Complexidade
-1 Editor Highlight (simulando uma pequena IDE)     3
-2 Avaliador de expressões aritméticas              3
-3 Inserção de Operadores lógicos                   2
-4 Geração de várias linguagens-alvo                3
-5 Uma API Rest para implementação do compilador    4
-6 Um Interpretador (runtime) para a linguagem      5
+1. Editor Highlight (simulando uma pequena IDE)     3
+2. Avaliador de expressões aritméticas              3
+3. Inserção de Operadores lógicos                   2
+4. Geração de várias linguagens-alvo                3
+5. Uma API Rest para implementação do compilador    4
+6. Um Interpretador (runtime) para a linguagem      5
 
 A nota irá aumentar segundo o critério
 De C para B —> itens cuja somatória das complexidades seja pelo menos 7
