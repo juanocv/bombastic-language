@@ -5,7 +5,7 @@ Bem-vindo(a) à linguagem Bombastic criada com ANTLR (4.9.2) e Java! No path `sr
 ## Checklist
 1. Possui 2 tipos de variáveis [X]
 2. Possui a estrutura If.. else [X]
-3. Possui estrutura de controle while/do while 
+3. Possui estrutura de controle while/do while [X]
 4. Operações Aritméticas executadas corretamente [X]
 5. Atribuições realizadas corretamente [Falta realizar atribuições para o tipo 'txt' (String)]
 6. Possui operações de Entrada e Saída [X]
