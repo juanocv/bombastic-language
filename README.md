@@ -13,7 +13,7 @@ Itens Obrigatórios (Nota C)
 7. Aceita números decimais [X]
 8. Verificar se a variável já foi previamente declarada [X]
 9. Verificar se a variável foi declarada e não foi usada [X]
-10. Verificar se uma variável está sendo usada sem ter valor inicial [X]
+10.Verificar se uma variável está sendo usada sem ter valor inicial [X]
 
 Itens Opcionais 
 ITEM		                                               Complexidade
@@ -25,8 +25,8 @@ ITEM		                                               Complexidade
 6. Um Interpretador (runtime) para a linguagem      5
 
 A nota irá aumentar segundo o critério
-.De C para B —> itens cuja somatória das complexidades seja pelo menos 7
-.De C para A —> itens cuja somatória das complexidades seja pelo menos 10
+1.De C para B —> itens cuja somatória das complexidades seja pelo menos 7
+2.De C para A —> itens cuja somatória das complexidades seja pelo menos 10
 
 ## Como realizar o teste?
 
