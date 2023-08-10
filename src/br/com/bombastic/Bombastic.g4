@@ -25,7 +25,8 @@ grammar Bombastic;
     private String _exprDecision;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
-
+	private ArrayList<AbstractCommand> listaLoop;
+	
     public void defineId(BombasticSymbolTable symbolTable, int _tipo, String _varName){
         _varValue = null;
         symbol = new BombasticVariable(_varName, _tipo, _varValue);
@@ -96,6 +97,7 @@ cmd     : cmdleitura //{System.out.println("Reconheci um comando de leitura");}
         | cmdattrib  //{System.out.println("Reconheci um comando de atribuição");}
         | cmdselecao //{System.out.println("Reconheci um comando de seleção");}
         | cmdrepeticao //{System.out.println("Reconheci um comando de repeticao");}
+        | cmdrepeticao //{System.out.println("Reconheci um comando de repetição");}
         ;
 
 cmdleitura  : 'read' AP 
@@ -171,10 +173,13 @@ cmdselecao  : 'when' AP
                 )?
             ;
 
-cmdrepeticao : 'enquanto' AP 
-                   ID {_exprDecision = _input.LT(-1).getText();}
+cmdrepeticao  : 'enquanto' 
+				   AP 
+                   ID { verificaAtr(_input.LT(-1).getText());
+                        _exprDecision = _input.LT(-1).getText();}
                    OPREL {_exprDecision += _input.LT(-1).getText();}
-                   (ID | NUMBER) {_exprDecision += _input.LT(-1).getText();}
+                   (ID | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
+                                                _exprDecision += _input.LT(-1).getText();}
                    FP 
                    AC
                    { 
@@ -184,7 +189,33 @@ cmdrepeticao : 'enquanto' AP
                    (cmd)+ 
                    FC
                    {
-                        
+                        listaLoop = stack.pop();
+                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,false);
+                        stack.peek().add(cmd);
+                   }
+                   |
+                   'faca' 				   
+                   AC
+                   { 
+                        curThread = new ArrayList<AbstractCommand>();
+                        stack.push(curThread);
+                   }
+                   (cmd)+ 
+                   FC
+                   
+                   'enquanto' 
+				   AP 
+                   ID { verificaAtr(_input.LT(-1).getText());
+                        _exprDecision = _input.LT(-1).getText();}
+                   OPREL {_exprDecision += _input.LT(-1).getText();}
+                   (ID | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
+                                                _exprDecision += _input.LT(-1).getText();}
+                   FP
+                   SC
+                   {
+                        listaLoop = stack.pop();
+                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,true);
+                        stack.peek().add(cmd);
                    }
             ;
 
