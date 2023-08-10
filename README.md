@@ -25,8 +25,9 @@ ITEM		                                               Complexidade
 6. Um Interpretador (runtime) para a linguagem      5
 
 A nota irá aumentar segundo o critério
-1.De C para B —> itens cuja somatória das complexidades seja pelo menos 7
-2.De C para A —> itens cuja somatória das complexidades seja pelo menos 10
+De C para B —> itens cuja somatória das complexidades seja pelo menos 7
+
+De C para A —> itens cuja somatória das complexidades seja pelo menos 10
 
 ## Como realizar o teste?
 
