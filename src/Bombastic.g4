@@ -76,7 +76,8 @@ grammar Bombastic;
     }
 
     public void generateCode(){
-        program.generateTarget();
+        program.generateTargetJava();
+        program.generateTargetJS();
     }         
 }
 
