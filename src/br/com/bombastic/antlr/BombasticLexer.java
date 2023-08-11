@@ -1,5 +1,5 @@
-// Generated from Bombastic.g4 by ANTLR 4.9.2
 package br.com.bombastic.antlr;
+// Generated from Bombastic.g4 by ANTLR 4.9.2
 
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
@@ -129,15 +129,30 @@ public class BombasticLexer extends Lexer {
 	            throw new BombasticSemanticException("Symbol "+id+" not declared");
 	        }
 	    }
+
 	    public void verificaAtr(String id){
-					BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-					if (var == null){
-						return;
-					}
-			       if (var.getValue() == null){
-			            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
-			        }
-			    }
+			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+			if (var == null){
+				return;
+			}
+			if (var.getValue() == null){
+			    throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
+			}
+		}
+
+	    public void verificaUsed(BombasticSymbolTable symbolTable){
+				ArrayList<BombasticSymbol> varlList = symbolTable.getAll();
+				for (BombasticSymbol var : varlList){
+					verificaVarUsed(var.getName());
+				}
+			}
+
+		public void verificaVarUsed(String id){
+			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+			if (var.getUsed() == false){
+				throw new BombasticSemanticException("Symbol "+id+" declared but not used");
+			}
+		}
 
 	    public void exibeComandos(){
 	        for(AbstractCommand c: program.getComandos()){
@@ -146,8 +161,7 @@ public class BombasticLexer extends Lexer {
 	    }
 
 	    public void generateCode(){
-	        program.generateTargetJava();
-	        program.generateTargetJS();
+	        program.generateTarget();
 	    }         
 
 

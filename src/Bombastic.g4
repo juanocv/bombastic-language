@@ -44,15 +44,30 @@ grammar Bombastic;
             throw new BombasticSemanticException("Symbol "+id+" not declared");
         }
     }
+
     public void verificaAtr(String id){
-				BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-				if (var == null){
-					return;
-				}
-		       if (var.getValue() == null){
-		            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
-		        }
-		    }
+		BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+		if (var == null){
+			return;
+		}
+		if (var.getValue() == null){
+		    throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
+		}
+	}
+
+    public void verificaUsed(BombasticSymbolTable symbolTable){
+			ArrayList<BombasticSymbol> varlList = symbolTable.getAll();
+			for (BombasticSymbol var : varlList){
+				verificaVarUsed(var.getName());
+			}
+		}
+
+	public void verificaVarUsed(String id){
+		BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+		if (var.getUsed() == false){
+			throw new BombasticSemanticException("Symbol "+id+" declared but not used");
+		}
+	}
 
     public void exibeComandos(){
         for(AbstractCommand c: program.getComandos()){
@@ -70,6 +85,7 @@ prog    : 'begin'    decl    bloco    'end'
             { 
                 program.setVarTable(symbolTable);
                 program.setComandos(stack.pop());
+                verificaUsed(symbolTable);
             }
         ;
 
@@ -122,6 +138,8 @@ cmdescrita  : 'write' AP
                         SC
                 { 
                     CommandEscrita cmd = new CommandEscrita(_writeId);
+                    BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				    var.setUsed();
                     stack.peek().add(cmd);
                 }
             ;
@@ -142,9 +160,13 @@ cmdattrib   : ID {verificaId(_input.LT(-1).getText());
 
 cmdselecao  : 'when' AP 
                    ID { verificaAtr(_input.LT(-1).getText());
+                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				        var.setUsed();
                         _exprDecision = _input.LT(-1).getText();}
                    OPREL {_exprDecision += _input.LT(-1).getText();}
                    (ID | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
+                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				                                var.setUsed();
                                                 _exprDecision += _input.LT(-1).getText();}
                    FP 
                    AC
@@ -176,9 +198,13 @@ cmdselecao  : 'when' AP
 cmdrepeticao  : 'enquanto' 
 				   AP 
                    ID { verificaAtr(_input.LT(-1).getText());
+                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				        var.setUsed();
                         _exprDecision = _input.LT(-1).getText();}
                    OPREL {_exprDecision += _input.LT(-1).getText();}
                    (ID | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
+                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				                                var.setUsed();
                                                 _exprDecision += _input.LT(-1).getText();}
                    FP 
                    AC
@@ -206,9 +232,13 @@ cmdrepeticao  : 'enquanto'
                    'enquanto' 
 				   AP 
                    ID { verificaAtr(_input.LT(-1).getText());
-                        _exprDecision = _input.LT(-1).getText();}
+                        _exprDecision = _input.LT(-1).getText();
+                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				        var.setUsed();}
                    OPREL {_exprDecision += _input.LT(-1).getText();}
                    (ID | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
+                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+				                                var.setUsed();
                                                 _exprDecision += _input.LT(-1).getText();}
                    FP
                    SC

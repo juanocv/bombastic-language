@@ -1,5 +1,5 @@
-// Generated from Bombastic.g4 by ANTLR 4.9.2
 package br.com.bombastic.antlr;
+// Generated from Bombastic.g4 by ANTLR 4.9.2
 
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
@@ -136,15 +136,30 @@ public class BombasticParser extends Parser {
 	            throw new BombasticSemanticException("Symbol "+id+" not declared");
 	        }
 	    }
+
 	    public void verificaAtr(String id){
-					BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-					if (var == null){
-						return;
-					}
-			       if (var.getValue() == null){
-			            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
-			        }
-			    }
+			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+			if (var == null){
+				return;
+			}
+			if (var.getValue() == null){
+			    throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
+			}
+		}
+
+	    public void verificaUsed(BombasticSymbolTable symbolTable){
+				ArrayList<BombasticSymbol> varlList = symbolTable.getAll();
+				for (BombasticSymbol var : varlList){
+					verificaVarUsed(var.getName());
+				}
+			}
+
+		public void verificaVarUsed(String id){
+			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+			if (var.getUsed() == false){
+				throw new BombasticSemanticException("Symbol "+id+" declared but not used");
+			}
+		}
 
 	    public void exibeComandos(){
 	        for(AbstractCommand c: program.getComandos()){
@@ -153,8 +168,7 @@ public class BombasticParser extends Parser {
 	    }
 
 	    public void generateCode(){
-	        program.generateTargetJava();
-	        program.generateTargetJS();
+	        program.generateTarget();
 	    }         
 
 	public BombasticParser(TokenStream input) {
@@ -200,6 +214,7 @@ public class BombasticParser extends Parser {
 			 
 			                program.setVarTable(symbolTable);
 			                program.setComandos(stack.pop());
+			                verificaUsed(symbolTable);
 			            
 			}
 		}
@@ -648,6 +663,8 @@ public class BombasticParser extends Parser {
 			match(SC);
 			 
 			                    CommandEscrita cmd = new CommandEscrita(_writeId);
+			                    BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+							    var.setUsed();
 			                    stack.peek().add(cmd);
 			                
 			}
@@ -774,6 +791,8 @@ public class BombasticParser extends Parser {
 			setState(98);
 			match(ID);
 			 verificaAtr(_input.LT(-1).getText());
+			                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+							        var.setUsed();
 			                        _exprDecision = _input.LT(-1).getText();
 			setState(100);
 			match(OPREL);
@@ -789,6 +808,8 @@ public class BombasticParser extends Parser {
 				consume();
 			}
 			 verificaAtr(_input.LT(-1).getText());
+			                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+							                                var.setUsed();
 			                                                _exprDecision += _input.LT(-1).getText();
 			setState(104);
 			match(FP);
@@ -921,6 +942,8 @@ public class BombasticParser extends Parser {
 				setState(129);
 				match(ID);
 				 verificaAtr(_input.LT(-1).getText());
+				                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+								        var.setUsed();
 				                        _exprDecision = _input.LT(-1).getText();
 				setState(131);
 				match(OPREL);
@@ -936,6 +959,8 @@ public class BombasticParser extends Parser {
 					consume();
 				}
 				 verificaAtr(_input.LT(-1).getText());
+				                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+								                                var.setUsed();
 				                                                _exprDecision += _input.LT(-1).getText();
 				setState(135);
 				match(FP);
@@ -1003,6 +1028,8 @@ public class BombasticParser extends Parser {
 				match(ID);
 				 verificaAtr(_input.LT(-1).getText());
 				                        _exprDecision = _input.LT(-1).getText();
+				                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+								        var.setUsed();
 				setState(159);
 				match(OPREL);
 				_exprDecision += _input.LT(-1).getText();
@@ -1017,6 +1044,8 @@ public class BombasticParser extends Parser {
 					consume();
 				}
 				 verificaAtr(_input.LT(-1).getText());
+				                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
+								                                var.setUsed();
 				                                                _exprDecision += _input.LT(-1).getText();
 				setState(163);
 				match(FP);

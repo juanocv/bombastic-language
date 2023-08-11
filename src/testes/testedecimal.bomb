@@ -1,0 +1,12 @@
+begin
+    num a, b, c, d;
+
+	a = 1.1;
+	b = 5.2;
+    c = 10.3456;
+
+    write(a);
+    write(b);
+    write(c);
+    
+end;

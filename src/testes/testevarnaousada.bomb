@@ -1,0 +1,9 @@
+begin
+	
+    num a;
+	num unusedNum;
+    txt unusedTxt;
+
+    a = 1;
+    write(a);
+end;

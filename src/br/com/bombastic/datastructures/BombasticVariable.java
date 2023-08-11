@@ -8,11 +8,13 @@ public class BombasticVariable extends BombasticSymbol{
     
     private int type;
     private String value;
+    private boolean used;
 
     public BombasticVariable(String name, int type, String value){
         super(name);
         this.type = type;
         this.value = value;
+        this.used = false;
     }
     
 
@@ -74,5 +76,13 @@ public class BombasticVariable extends BombasticSymbol{
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed() {
+        this.used = true;
     }
 }

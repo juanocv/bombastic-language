@@ -1,0 +1,12 @@
+begin
+    num a;
+    txt t1;
+	
+    read(txt);
+	write(a);
+
+    when (a>b) {
+        write(a);
+    }
+
+end;
