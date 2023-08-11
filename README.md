@@ -8,7 +8,7 @@ Itens Obrigatórios (Nota C)
 2. Possui a estrutura If.. else [X]
 3. Possui estrutura de controle while/do while [X]
 4. Operações Aritméticas executadas corretamente [X]
-5. Atribuições realizadas corretamente [Falta realizar atribuições para o tipo 'txt' (String)]
+5. Atribuições realizadas corretamente [X]
 6. Possui operações de Entrada e Saída [X]
 7. Aceita números decimais [X]
 8. Verificar se a variável já foi previamente declarada [X]
@@ -19,7 +19,7 @@ Itens Opcionais
 ITEM		                                               Complexidade
 1. Editor Highlight (simulando uma pequena IDE)     3
 2. Avaliador de expressões aritméticas              3
-3. Inserção de Operadores lógicos                   2
+3. Inserção de Operadores lógicos                   2[X]
 4. Geração de várias linguagens-alvo                3
 5. Uma API Rest para implementação do compilador    4
 6. Um Interpretador (runtime) para a linguagem      5
