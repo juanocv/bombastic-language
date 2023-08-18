@@ -28,7 +28,7 @@ public class BombasticProgram {
         str.append("}");
 
         try {
-            FileWriter fr = new FileWriter(new File("src/MainTestClass.java"));
+            FileWriter fr = new FileWriter(new File("src/Linguagem-Geradas/MainTestClass.java"));
             fr.write(str.toString());
             fr.close();
         } catch (Exception ex) {
@@ -48,7 +48,7 @@ public class BombasticProgram {
         }
         
         try {
-            FileWriter fr = new FileWriter(new File("src/MainTestClass.js"));
+            FileWriter fr = new FileWriter(new File("src/Linguagem-Geradas/MainTestClass.js"));
             fr.write(str.toString());
             fr.close();
         } catch (Exception ex) {
