@@ -1,5 +1,5 @@
-package br.com.bombastic.antlr;
 // Generated from Bombastic.g4 by ANTLR 4.9.2
+package br.com.bombastic.antlr;
 
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
@@ -25,8 +25,8 @@ public class BombasticParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, AP=12, FP=13, SC=14, OP=15, ATTR=16, VIR=17, AC=18, 
-		FC=19, OPREL=20, ID=21, NUMBER=22, TEXT=23, CHAR=24, WS=25;
+		T__9=10, T__10=11, AP=12, FP=13, SC=14, OP=15, OP_L=16, ATTR=17, VIR=18, 
+		AC=19, FC=20, OPREL=21, ID=22, NUMBER=23, TEXT=24, CHAR=25, WS=26;
 	public static final int
 		RULE_prog = 0, RULE_decl = 1, RULE_declaravar = 2, RULE_tipo = 3, RULE_bloco = 4, 
 		RULE_cmd = 5, RULE_cmdleitura = 6, RULE_cmdescrita = 7, RULE_cmdattrib = 8, 
@@ -43,15 +43,15 @@ public class BombasticParser extends Parser {
 		return new String[] {
 			null, "'begin'", "'end'", "'num'", "'txt'", "'char'", "'read'", "'write'", 
 			"'when'", "'otherwise'", "'enquanto'", "'faca'", "'('", "')'", "';'", 
-			null, "'='", "','", "'{'", "'}'"
+			null, null, "'='", "','", "'{'", "'}'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			"AP", "FP", "SC", "OP", "ATTR", "VIR", "AC", "FC", "OPREL", "ID", "NUMBER", 
-			"TEXT", "CHAR", "WS"
+			"AP", "FP", "SC", "OP", "OP_L", "ATTR", "VIR", "AC", "FC", "OPREL", "ID", 
+			"NUMBER", "TEXT", "CHAR", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -136,30 +136,15 @@ public class BombasticParser extends Parser {
 	            throw new BombasticSemanticException("Symbol "+id+" not declared");
 	        }
 	    }
-
 	    public void verificaAtr(String id){
-			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-			if (var == null){
-				return;
-			}
-			if (var.getValue() == null){
-			    throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
-			}
-		}
-
-	    public void verificaUsed(BombasticSymbolTable symbolTable){
-				ArrayList<BombasticSymbol> varlList = symbolTable.getAll();
-				for (BombasticSymbol var : varlList){
-					verificaVarUsed(var.getName());
-				}
-			}
-
-		public void verificaVarUsed(String id){
-			BombasticVariable var = (BombasticVariable)symbolTable.get(id);
-			if (var.getUsed() == false){
-				throw new BombasticSemanticException("Symbol "+id+" declared but not used");
-			}
-		}
+					BombasticVariable var = (BombasticVariable)symbolTable.get(id);
+					if (var == null){
+						return;
+					}
+			       if (var.getValue() == null){
+			            throw new BombasticSemanticException("Symbol "+id+" declared but not attributed");
+			        }
+			    }
 
 	    public void exibeComandos(){
 	        for(AbstractCommand c: program.getComandos()){
@@ -168,7 +153,8 @@ public class BombasticParser extends Parser {
 	    }
 
 	    public void generateCode(){
-	        program.generateTarget();
+	        program.generateTargetJava();
+	        program.generateTargetJS();
 	    }         
 
 	public BombasticParser(TokenStream input) {
@@ -214,7 +200,6 @@ public class BombasticParser extends Parser {
 			 
 			                program.setVarTable(symbolTable);
 			                program.setComandos(stack.pop());
-			                verificaUsed(symbolTable);
 			            
 			}
 		}
@@ -663,8 +648,6 @@ public class BombasticParser extends Parser {
 			match(SC);
 			 
 			                    CommandEscrita cmd = new CommandEscrita(_writeId);
-			                    BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-							    var.setUsed();
 			                    stack.peek().add(cmd);
 			                
 			}
@@ -740,10 +723,6 @@ public class BombasticParser extends Parser {
 
 	public static class CmdselecaoContext extends ParserRuleContext {
 		public TerminalNode AP() { return getToken(BombasticParser.AP, 0); }
-		public List<TerminalNode> ID() { return getTokens(BombasticParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(BombasticParser.ID, i);
-		}
 		public TerminalNode OPREL() { return getToken(BombasticParser.OPREL, 0); }
 		public TerminalNode FP() { return getToken(BombasticParser.FP, 0); }
 		public List<TerminalNode> AC() { return getTokens(BombasticParser.AC); }
@@ -754,9 +733,22 @@ public class BombasticParser extends Parser {
 		public TerminalNode FC(int i) {
 			return getToken(BombasticParser.FC, i);
 		}
-		public TerminalNode NUMBER() { return getToken(BombasticParser.NUMBER, 0); }
-		public TerminalNode TEXT() { return getToken(BombasticParser.TEXT, 0); }
-		public TerminalNode CHAR() { return getToken(BombasticParser.CHAR, 0); }
+		public List<TerminalNode> ID() { return getTokens(BombasticParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(BombasticParser.ID, i);
+		}
+		public List<TerminalNode> NUMBER() { return getTokens(BombasticParser.NUMBER); }
+		public TerminalNode NUMBER(int i) {
+			return getToken(BombasticParser.NUMBER, i);
+		}
+		public List<TerminalNode> TEXT() { return getTokens(BombasticParser.TEXT); }
+		public TerminalNode TEXT(int i) {
+			return getToken(BombasticParser.TEXT, i);
+		}
+		public List<TerminalNode> CHAR() { return getTokens(BombasticParser.CHAR); }
+		public TerminalNode CHAR(int i) {
+			return getToken(BombasticParser.CHAR, i);
+		}
 		public List<CmdContext> cmd() {
 			return getRuleContexts(CmdContext.class);
 		}
@@ -789,14 +781,20 @@ public class BombasticParser extends Parser {
 			setState(97);
 			match(AP);
 			setState(98);
-			match(ID);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << NUMBER) | (1L << TEXT) | (1L << CHAR))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			 verificaAtr(_input.LT(-1).getText());
-			                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-							        var.setUsed();
 			                        _exprDecision = _input.LT(-1).getText();
 			setState(100);
 			match(OPREL);
-			_exprDecision += _input.LT(-1).getText();
+			_exprDecision += _input.LT(-1).getText( );
 			setState(102);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << NUMBER) | (1L << TEXT) | (1L << CHAR))) != 0)) ) {
@@ -808,8 +806,6 @@ public class BombasticParser extends Parser {
 				consume();
 			}
 			 verificaAtr(_input.LT(-1).getText());
-			                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-							                                var.setUsed();
 			                                                _exprDecision += _input.LT(-1).getText();
 			setState(104);
 			match(FP);
@@ -942,8 +938,6 @@ public class BombasticParser extends Parser {
 				setState(129);
 				match(ID);
 				 verificaAtr(_input.LT(-1).getText());
-				                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-								        var.setUsed();
 				                        _exprDecision = _input.LT(-1).getText();
 				setState(131);
 				match(OPREL);
@@ -959,8 +953,6 @@ public class BombasticParser extends Parser {
 					consume();
 				}
 				 verificaAtr(_input.LT(-1).getText());
-				                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-								                                var.setUsed();
 				                                                _exprDecision += _input.LT(-1).getText();
 				setState(135);
 				match(FP);
@@ -1028,8 +1020,6 @@ public class BombasticParser extends Parser {
 				match(ID);
 				 verificaAtr(_input.LT(-1).getText());
 				                        _exprDecision = _input.LT(-1).getText();
-				                        BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-								        var.setUsed();
 				setState(159);
 				match(OPREL);
 				_exprDecision += _input.LT(-1).getText();
@@ -1044,8 +1034,6 @@ public class BombasticParser extends Parser {
 					consume();
 				}
 				 verificaAtr(_input.LT(-1).getText());
-				                                                BombasticVariable var = (BombasticVariable)symbolTable.get(_exprId);
-								                                var.setUsed();
 				                                                _exprDecision += _input.LT(-1).getText();
 				setState(163);
 				match(FP);
@@ -1219,7 +1207,7 @@ public class BombasticParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\33\u00bf\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\34\u00bf\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\3\2\3\2\3\2\3\3\6\3$\n\3\r"+
 		"\3\16\3%\3\4\3\4\3\4\3\4\3\4\3\4\7\4.\n\4\f\4\16\4\61\13\4\3\4\3\4\3\5"+
@@ -1233,45 +1221,45 @@ public class BombasticParser extends Parser {
 		"\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u00aa\n\f\3\r\3"+
 		"\r\3\r\3\r\7\r\u00b0\n\r\f\r\16\r\u00b3\13\r\3\16\3\16\3\16\3\16\3\16"+
 		"\3\16\3\16\3\16\5\16\u00bd\n\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26"+
-		"\30\32\2\3\3\2\27\32\2\u00c5\2\34\3\2\2\2\4#\3\2\2\2\6\'\3\2\2\2\b:\3"+
+		"\30\32\2\3\3\2\30\33\2\u00c5\2\34\3\2\2\2\4#\3\2\2\2\6\'\3\2\2\2\b:\3"+
 		"\2\2\2\n<\3\2\2\2\fH\3\2\2\2\16J\3\2\2\2\20R\3\2\2\2\22Z\3\2\2\2\24b\3"+
 		"\2\2\2\26\u00a9\3\2\2\2\30\u00ab\3\2\2\2\32\u00bc\3\2\2\2\34\35\7\3\2"+
 		"\2\35\36\5\4\3\2\36\37\5\n\6\2\37 \7\4\2\2 !\b\2\1\2!\3\3\2\2\2\"$\5\6"+
 		"\4\2#\"\3\2\2\2$%\3\2\2\2%#\3\2\2\2%&\3\2\2\2&\5\3\2\2\2\'(\5\b\5\2()"+
-		"\7\27\2\2)/\b\4\1\2*+\7\23\2\2+,\7\27\2\2,.\b\4\1\2-*\3\2\2\2.\61\3\2"+
+		"\7\30\2\2)/\b\4\1\2*+\7\24\2\2+,\7\30\2\2,.\b\4\1\2-*\3\2\2\2.\61\3\2"+
 		"\2\2/-\3\2\2\2/\60\3\2\2\2\60\62\3\2\2\2\61/\3\2\2\2\62\63\7\20\2\2\63"+
 		"\7\3\2\2\2\64\65\7\5\2\2\65;\b\5\1\2\66\67\7\6\2\2\67;\b\5\1\289\7\7\2"+
 		"\29;\b\5\1\2:\64\3\2\2\2:\66\3\2\2\2:8\3\2\2\2;\t\3\2\2\2<>\b\6\1\2=?"+
 		"\5\f\7\2>=\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2A\13\3\2\2\2BI\5\16\b"+
 		"\2CI\5\20\t\2DI\5\22\n\2EI\5\24\13\2FI\5\26\f\2GI\5\26\f\2HB\3\2\2\2H"+
 		"C\3\2\2\2HD\3\2\2\2HE\3\2\2\2HF\3\2\2\2HG\3\2\2\2I\r\3\2\2\2JK\7\b\2\2"+
-		"KL\7\16\2\2LM\7\27\2\2MN\b\b\1\2NO\7\17\2\2OP\7\20\2\2PQ\b\b\1\2Q\17\3"+
-		"\2\2\2RS\7\t\2\2ST\7\16\2\2TU\7\27\2\2UV\b\t\1\2VW\7\17\2\2WX\7\20\2\2"+
-		"XY\b\t\1\2Y\21\3\2\2\2Z[\7\27\2\2[\\\b\n\1\2\\]\7\22\2\2]^\b\n\1\2^_\5"+
-		"\30\r\2_`\7\20\2\2`a\b\n\1\2a\23\3\2\2\2bc\7\n\2\2cd\7\16\2\2de\7\27\2"+
-		"\2ef\b\13\1\2fg\7\26\2\2gh\b\13\1\2hi\t\2\2\2ij\b\13\1\2jk\7\17\2\2kl"+
-		"\7\24\2\2ln\b\13\1\2mo\5\f\7\2nm\3\2\2\2op\3\2\2\2pn\3\2\2\2pq\3\2\2\2"+
-		"qr\3\2\2\2rs\7\25\2\2s\177\b\13\1\2tu\7\13\2\2uv\7\24\2\2vx\b\13\1\2w"+
-		"y\5\f\7\2xw\3\2\2\2yz\3\2\2\2zx\3\2\2\2z{\3\2\2\2{|\3\2\2\2|}\7\25\2\2"+
+		"KL\7\16\2\2LM\7\30\2\2MN\b\b\1\2NO\7\17\2\2OP\7\20\2\2PQ\b\b\1\2Q\17\3"+
+		"\2\2\2RS\7\t\2\2ST\7\16\2\2TU\7\30\2\2UV\b\t\1\2VW\7\17\2\2WX\7\20\2\2"+
+		"XY\b\t\1\2Y\21\3\2\2\2Z[\7\30\2\2[\\\b\n\1\2\\]\7\23\2\2]^\b\n\1\2^_\5"+
+		"\30\r\2_`\7\20\2\2`a\b\n\1\2a\23\3\2\2\2bc\7\n\2\2cd\7\16\2\2de\t\2\2"+
+		"\2ef\b\13\1\2fg\7\27\2\2gh\b\13\1\2hi\t\2\2\2ij\b\13\1\2jk\7\17\2\2kl"+
+		"\7\25\2\2ln\b\13\1\2mo\5\f\7\2nm\3\2\2\2op\3\2\2\2pn\3\2\2\2pq\3\2\2\2"+
+		"qr\3\2\2\2rs\7\26\2\2s\177\b\13\1\2tu\7\13\2\2uv\7\25\2\2vx\b\13\1\2w"+
+		"y\5\f\7\2xw\3\2\2\2yz\3\2\2\2zx\3\2\2\2z{\3\2\2\2{|\3\2\2\2|}\7\26\2\2"+
 		"}~\b\13\1\2~\u0080\3\2\2\2\177t\3\2\2\2\177\u0080\3\2\2\2\u0080\25\3\2"+
-		"\2\2\u0081\u0082\7\f\2\2\u0082\u0083\7\16\2\2\u0083\u0084\7\27\2\2\u0084"+
-		"\u0085\b\f\1\2\u0085\u0086\7\26\2\2\u0086\u0087\b\f\1\2\u0087\u0088\t"+
-		"\2\2\2\u0088\u0089\b\f\1\2\u0089\u008a\7\17\2\2\u008a\u008b\7\24\2\2\u008b"+
+		"\2\2\u0081\u0082\7\f\2\2\u0082\u0083\7\16\2\2\u0083\u0084\7\30\2\2\u0084"+
+		"\u0085\b\f\1\2\u0085\u0086\7\27\2\2\u0086\u0087\b\f\1\2\u0087\u0088\t"+
+		"\2\2\2\u0088\u0089\b\f\1\2\u0089\u008a\7\17\2\2\u008a\u008b\7\25\2\2\u008b"+
 		"\u008d\b\f\1\2\u008c\u008e\5\f\7\2\u008d\u008c\3\2\2\2\u008e\u008f\3\2"+
 		"\2\2\u008f\u008d\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0091\3\2\2\2\u0091"+
-		"\u0092\7\25\2\2\u0092\u0093\b\f\1\2\u0093\u00aa\3\2\2\2\u0094\u0095\7"+
-		"\r\2\2\u0095\u0096\7\24\2\2\u0096\u0098\b\f\1\2\u0097\u0099\5\f\7\2\u0098"+
+		"\u0092\7\26\2\2\u0092\u0093\b\f\1\2\u0093\u00aa\3\2\2\2\u0094\u0095\7"+
+		"\r\2\2\u0095\u0096\7\25\2\2\u0096\u0098\b\f\1\2\u0097\u0099\5\f\7\2\u0098"+
 		"\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a\u0098\3\2\2\2\u009a\u009b\3\2"+
-		"\2\2\u009b\u009c\3\2\2\2\u009c\u009d\7\25\2\2\u009d\u009e\7\f\2\2\u009e"+
-		"\u009f\7\16\2\2\u009f\u00a0\7\27\2\2\u00a0\u00a1\b\f\1\2\u00a1\u00a2\7"+
-		"\26\2\2\u00a2\u00a3\b\f\1\2\u00a3\u00a4\t\2\2\2\u00a4\u00a5\b\f\1\2\u00a5"+
+		"\2\2\u009b\u009c\3\2\2\2\u009c\u009d\7\26\2\2\u009d\u009e\7\f\2\2\u009e"+
+		"\u009f\7\16\2\2\u009f\u00a0\7\30\2\2\u00a0\u00a1\b\f\1\2\u00a1\u00a2\7"+
+		"\27\2\2\u00a2\u00a3\b\f\1\2\u00a3\u00a4\t\2\2\2\u00a4\u00a5\b\f\1\2\u00a5"+
 		"\u00a6\7\17\2\2\u00a6\u00a7\7\20\2\2\u00a7\u00a8\b\f\1\2\u00a8\u00aa\3"+
 		"\2\2\2\u00a9\u0081\3\2\2\2\u00a9\u0094\3\2\2\2\u00aa\27\3\2\2\2\u00ab"+
 		"\u00b1\5\32\16\2\u00ac\u00ad\7\21\2\2\u00ad\u00ae\b\r\1\2\u00ae\u00b0"+
 		"\5\32\16\2\u00af\u00ac\3\2\2\2\u00b0\u00b3\3\2\2\2\u00b1\u00af\3\2\2\2"+
 		"\u00b1\u00b2\3\2\2\2\u00b2\31\3\2\2\2\u00b3\u00b1\3\2\2\2\u00b4\u00b5"+
-		"\7\27\2\2\u00b5\u00bd\b\16\1\2\u00b6\u00b7\7\30\2\2\u00b7\u00bd\b\16\1"+
-		"\2\u00b8\u00b9\7\31\2\2\u00b9\u00bd\b\16\1\2\u00ba\u00bb\7\32\2\2\u00bb"+
+		"\7\30\2\2\u00b5\u00bd\b\16\1\2\u00b6\u00b7\7\31\2\2\u00b7\u00bd\b\16\1"+
+		"\2\u00b8\u00b9\7\32\2\2\u00b9\u00bd\b\16\1\2\u00ba\u00bb\7\33\2\2\u00bb"+
 		"\u00bd\b\16\1\2\u00bc\u00b4\3\2\2\2\u00bc\u00b6\3\2\2\2\u00bc\u00b8\3"+
 		"\2\2\2\u00bc\u00ba\3\2\2\2\u00bd\33\3\2\2\2\17%/:@Hpz\177\u008f\u009a"+
 		"\u00a9\u00b1\u00bc";

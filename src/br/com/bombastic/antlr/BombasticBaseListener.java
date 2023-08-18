@@ -1,5 +1,5 @@
-package br.com.bombastic.antlr;
 // Generated from Bombastic.g4 by ANTLR 4.9.2
+package br.com.bombastic.antlr;
 
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
