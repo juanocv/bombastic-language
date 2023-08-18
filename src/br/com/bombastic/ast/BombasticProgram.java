@@ -13,7 +13,8 @@ public class BombasticProgram {
     private String programName;
 
     public void generateTargetJava() {
-        StringBuilder str = new StringBuilder();
+        StringBuilder str = new StringBuilder();        
+        str.append("package LinguagemGeradas;\n\n");
         str.append("import java.util.Scanner;\n\n");
         str.append("public class MainTestClass{ \n");
         str.append("\tpublic static void main(String args[]){ \n");
@@ -28,7 +29,7 @@ public class BombasticProgram {
         str.append("}");
 
         try {
-            FileWriter fr = new FileWriter(new File("src/Linguagem-Geradas/MainTestClass.java"));
+            FileWriter fr = new FileWriter(new File("src/LinguagemGeradas/MainTestClass.java"));
             fr.write(str.toString());
             fr.close();
         } catch (Exception ex) {
@@ -48,10 +49,10 @@ public class BombasticProgram {
         }
         
         try {
-            FileWriter fr = new FileWriter(new File("src/Linguagem-Geradas/MainTestClass.js"));
+            FileWriter fr = new FileWriter(new File("src/LinguagemGeradas/MainTestClass.js"));
             fr.write(str.toString());
             fr.close();
-        } catch (Exception ex) {
+        } catch (Exception ex) {	
             ex.printStackTrace();
         }
     }
