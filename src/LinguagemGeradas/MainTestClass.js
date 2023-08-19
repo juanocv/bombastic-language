@@ -1,13 +1,14 @@
-		let i;
-		i = 0;
-		while (i<3) {
-			console.log(i);
-			i = i+1;
+		let a;
+		let b;
+		a = 1;
+		b = 10;
+		if (a>b && a<b || a>b) {
+			console.log(a);
+		} else{
+			console.log(b);
 		}
-
-		i = 0;
-		do {
-			console.log(i);
-			i = i+1;
-		} while (i<3);
-
+		if (a==1 || a>b) {
+			console.log(a);
+		} else{
+			console.log(b);
+		}

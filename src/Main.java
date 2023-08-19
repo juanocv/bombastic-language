@@ -11,7 +11,7 @@ public class Main{
             BombasticLexer lexer;
             BombasticParser parser;
 
-            lexer = new BombasticLexer(CharStreams.fromFileName("src/testes/testewhiledo.bomb"));
+            lexer = new BombasticLexer(CharStreams.fromFileName("src/testes/testeoperlogico.bomb"));
 
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
 

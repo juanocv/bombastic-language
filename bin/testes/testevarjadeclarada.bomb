@@ -1,0 +1,10 @@
+begin
+    num a;
+    txt t1;
+    num a;
+    txt t1;
+	
+	a = 1 ;
+    t1 = "teste";
+
+end;

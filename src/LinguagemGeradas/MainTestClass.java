@@ -5,18 +5,19 @@ import java.util.Scanner;
 public class MainTestClass{ 
 	public static void main(String args[]){ 
 		Scanner key = new Scanner(System.in);
-		double i;
-		i = 0;
-		while (i<3) {
-			System.out.println(i);
-			i = i+1;
+		double a;
+		double b;
+		a = 1;
+		b = 10;
+		if (a>b && a<b || a>b) {
+			System.out.println(a);
+		} else{
+			System.out.println(b);
 		}
-
-		i = 0;
-		do {
-			System.out.println(i);
-			i = i+1;
-		} while (i<3);
-
+		if (a==1 || a>b) {
+			System.out.println(a);
+		} else{
+			System.out.println(b);
+		}
 	}
 }

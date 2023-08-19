@@ -1,0 +1,23 @@
+begin
+    num a, b;
+
+	a =1 ;
+    b = 10;
+    
+    when (a>b && a<b || a>b) {
+        write(a);
+    }
+    otherwise{
+        write(b);
+
+    }
+
+    when (a==1 || a>b) {
+        write(a);
+    }
+    otherwise{
+        write(b);
+
+    }
+
+end;

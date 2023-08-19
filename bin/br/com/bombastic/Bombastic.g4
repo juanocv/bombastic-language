@@ -159,17 +159,16 @@ cmdattrib   : ID {verificaId(_input.LT(-1).getText());
               }
             ;
 
-cmdselecao  : 'when' AP 
-                   ID { verificaAtr(_input.LT(-1).getText());
-                        BombasticVariable varwhen1 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				        varwhen1.setUsed();
-                        _exprDecision = _input.LT(-1).getText();}
-                   OPREL {_exprDecision += _input.LT(-1).getText();}
-                   (ID { verificaAtr(_input.LT(-1).getText());
-                         BombasticVariable varwhen2 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				         varwhen2.setUsed();}
-                        | NUMBER | TEXT | CHAR) {
-                                                _exprDecision += _input.LT(-1).getText();}
+cmdselecao  : 'when' AP {_exprContent = "";}
+                   expr
+                   OPREL {_exprContent += _input.LT(-1).getText();}
+                   expr  
+                   ({_exprContent += " ";}
+                    OPLOG {_exprContent += _input.LT(-1).getText();}
+                    {_exprContent += " ";}
+                    expr
+                    OPREL {_exprContent += _input.LT(-1).getText();}
+                    expr)*                            
                    FP 
                    AC
                    { 
@@ -191,7 +190,7 @@ cmdselecao  : 'when' AP
                     FC
                     {
                         listaFalse = stack.pop();
-                        CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
+                        CommandDecisao cmd = new CommandDecisao(_exprContent, listaTrue, listaFalse);
                         stack.peek().add(cmd);
                     }
                 )?
@@ -305,6 +304,9 @@ FC  :   '}'
 
 OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
       ;
+
+OPLOG : '&&' | '||'
+      ;  
 
 ID  :   [a-z] ([a-z] | [A-Z] | [0-9])*
     ;
