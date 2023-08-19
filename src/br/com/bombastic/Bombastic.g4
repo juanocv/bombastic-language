@@ -23,6 +23,7 @@ grammar Bombastic;
     private String _exprId;
     private String _exprContent;
     private String _exprDecision;
+    private String _exprRepetition;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
 	private ArrayList<AbstractCommand> listaLoop;
@@ -199,16 +200,16 @@ cmdselecao  : 'when' AP
 
 cmdrepeticao  : 'enquanto' 
 				   AP 
-                   {_exprDecision = "";}
-                   exprCond
-                   OPREL {_exprDecision += _input.LT(-1).getText();}
-                   exprCond  
-                   ({_exprDecision += " ";}
-                    OPLOG {_exprDecision += _input.LT(-1).getText();}
-                    {_exprDecision += " ";}
-                    exprCond
-                    OPREL {_exprDecision += _input.LT(-1).getText();}
-                    exprCond)*
+                   {_exprRepetition = "";}
+                   exprRep
+                   OPREL {_exprRepetition += _input.LT(-1).getText();}
+                   exprRep  
+                   ({_exprRepetition += " ";}
+                    OPLOG {_exprRepetition += _input.LT(-1).getText();}
+                    {_exprRepetition += " ";}
+                    exprRep
+                    OPREL {_exprRepetition += _input.LT(-1).getText();}
+                    exprRep)*
                    FP 
                    AC
                    { 
@@ -219,7 +220,7 @@ cmdrepeticao  : 'enquanto'
                    FC
                    {
                         listaLoop = stack.pop();
-                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,false);
+                        CommandRepeticao cmd = new CommandRepeticao(_exprRepetition, listaLoop, false);
                         stack.peek().add(cmd);
                    }
                    |
@@ -234,21 +235,21 @@ cmdrepeticao  : 'enquanto'
                    
                    'enquanto' 
 				   AP 
-                   {_exprDecision = "";}
-                   exprCond
-                   OPREL {_exprDecision += _input.LT(-1).getText();}
-                   exprCond  
-                   ({_exprDecision += " ";}
-                    OPLOG {_exprDecision += _input.LT(-1).getText();}
-                    {_exprDecision += " ";}
-                    exprCond
-                    OPREL {_exprDecision += _input.LT(-1).getText();}
-                    exprCond)*
+                   {_exprRepetition = "";}
+                   exprRep
+                   OPREL {_exprRepetition += _input.LT(-1).getText();}
+                   exprRep  
+                   ({_exprRepetition += " ";}
+                    OPLOG {_exprRepetition += _input.LT(-1).getText();}
+                    {_exprRepetition += " ";}
+                    exprRep
+                    OPREL {_exprRepetition += _input.LT(-1).getText();}
+                    exprRep)*
                    FP
                    SC
                    {
                         listaLoop = stack.pop();
-                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,true);
+                        CommandRepeticao cmd = new CommandRepeticao(_exprRepetition, listaLoop, true);
                         stack.peek().add(cmd);
                    }
             ;
@@ -300,6 +301,31 @@ termoCond       : ID {verificaId(_input.LT(-1).getText());
             | CHAR
               {
                 _exprDecision += _input.LT(-1).getText();
+              }
+            ;
+
+exprRep        : termoRep (OP {_exprRepetition += _input.LT(-1).getText();} 
+                termoRep 
+                )*
+            ;
+
+termoRep       : ID {verificaId(_input.LT(-1).getText());
+                verificaAtr(_input.LT(-1).getText());
+                BombasticVariable varexpr= (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
+                varexpr.setUsed();
+                _exprRepetition += _input.LT(-1).getText();
+              } 
+            | NUMBER
+              {
+                _exprRepetition += _input.LT(-1).getText();
+              }
+            | TEXT
+              {
+                _exprRepetition += _input.LT(-1).getText();
+              }
+            | CHAR
+              {
+                _exprRepetition += _input.LT(-1).getText();
               }
             ;
 

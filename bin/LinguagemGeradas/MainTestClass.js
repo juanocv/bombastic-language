@@ -19,6 +19,14 @@
 			i = i+1;
 		} while (i<3 || i>4);
 
+		do {
+			if (a>b && a<b || a>b) {
+			console.log(a);
+		} else{
+			console.log(b);
+		}			i = i+1;
+		} while (i<3 || i>4);
+
 		i = 0;
 		do {
 			console.log(i);

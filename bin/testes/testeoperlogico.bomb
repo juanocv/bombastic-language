@@ -26,6 +26,17 @@ begin
         i=i+1;
     }enquanto (i<3 || i>4);
 
+    faca{ 
+        when (a>b && a<b || a>b) {
+            write(a);
+        }
+        otherwise{
+            write(b);
+        }
+        i=i+1;
+    }enquanto (i<3 || i>4);
+
+
     i=0;
     faca{ 
         write(i);

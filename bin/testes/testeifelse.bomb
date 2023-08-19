@@ -1,7 +1,7 @@
 begin
     num a, b;
 
-	a = 1;
+	a =1 ;
     b = 10;
     
     when (a>b) {

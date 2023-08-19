@@ -109,6 +109,7 @@ public class BombasticLexer extends Lexer {
 	    private String _exprId;
 	    private String _exprContent;
 	    private String _exprDecision;
+	    private String _exprRepetition;
 	    private ArrayList<AbstractCommand> listaTrue;
 	    private ArrayList<AbstractCommand> listaFalse;
 		private ArrayList<AbstractCommand> listaLoop;
