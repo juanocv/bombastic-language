@@ -260,6 +260,9 @@ expr        : termo (OP {_exprContent += _input.LT(-1).getText();}
             ;
 
 termo       : ID {verificaId(_input.LT(-1).getText());
+                verificaAtr(_input.LT(-1).getText());
+                BombasticVariable varexpr= (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
+                varexpr.setUsed();
                 _exprContent += _input.LT(-1).getText();
               } 
             | NUMBER

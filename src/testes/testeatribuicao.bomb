@@ -1,12 +1,15 @@
 begin
     num a, b, c;
+    txt t;
 
-	a = 1.1;
-	b = 5.2;
-    c = 10.3456;
+	a = 1;
+	b = 5;
+    c = 10;
+    t = "texto";
 
     write(a);
     write(b);
     write(c);
-    
+    write(t);
+
 end;

@@ -5,5 +5,6 @@ begin
 	b = 5 ;
     c = 10;
 
-    d = a + b * c - b / a
+    d = a + b * c - b / a;
+    write(d);
 end;
