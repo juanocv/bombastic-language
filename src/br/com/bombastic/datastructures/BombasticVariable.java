@@ -37,9 +37,7 @@ public class BombasticVariable extends BombasticSymbol{
         return str + " " +super.name+ ";";
     }
     
-	@Override
-	public String generateJSCode() {
-		
+	public String generateJSCode() {		
         return "let " +super.name+ ";";
 	}
     
