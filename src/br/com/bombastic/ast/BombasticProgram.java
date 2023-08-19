@@ -25,6 +25,7 @@ public class BombasticProgram {
         for (AbstractCommand command: comandos) {
             str.append("\t\t"+command.generateJavaCode()+"\n");
         }
+        str.append("\t\tkey.close();\n");
         str.append("\t}\n");
         str.append("}");
 
