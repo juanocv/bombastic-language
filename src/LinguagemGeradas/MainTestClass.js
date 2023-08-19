@@ -1,5 +1,7 @@
 		let a;
 		let b;
+		let i;
+		i = 0;
 		a = 1;
 		b = 10;
 		if (a>b && a<b || a>b) {
@@ -12,3 +14,8 @@
 		} else{
 			console.log(b);
 		}
+		do {
+			console.log(i);
+			i = i+1;
+		} while (i<3 || i>4);
+

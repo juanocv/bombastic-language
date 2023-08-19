@@ -234,21 +234,21 @@ cmdrepeticao  : 'enquanto'
                    
                    'enquanto' 
 				   AP 
-                   ID { verificaAtr(_input.LT(-1).getText());
-                        _exprDecision = _input.LT(-1).getText();
-                        BombasticVariable vardo1 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				        vardo1.setUsed();}
-                   OPREL {_exprDecision += _input.LT(-1).getText();}
-                   (ID { verificaAtr(_input.LT(-1).getText());
-                         BombasticVariable vardo2 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				         vardo2.setUsed();}
-                        | NUMBER | TEXT | CHAR) {
-                                                _exprDecision += _input.LT(-1).getText();}
+                   {_exprContent = "";}
+                   expr
+                   OPREL {_exprContent += _input.LT(-1).getText();}
+                   expr  
+                   ({_exprContent += " ";}
+                    OPLOG {_exprContent += _input.LT(-1).getText();}
+                    {_exprContent += " ";}
+                    expr
+                    OPREL {_exprContent += _input.LT(-1).getText();}
+                    expr)*
                    FP
                    SC
                    {
                         listaLoop = stack.pop();
-                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,true);
+                        CommandRepeticao cmd = new CommandRepeticao(_exprContent, listaLoop,true);
                         stack.peek().add(cmd);
                    }
             ;

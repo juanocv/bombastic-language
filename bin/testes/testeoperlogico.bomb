@@ -1,6 +1,7 @@
 begin
-    num a, b;
+    num a, b, i;
 
+    i = 0;
 	a =1 ;
     b = 10;
     
@@ -19,5 +20,10 @@ begin
         write(b);
 
     }
+
+    faca{ 
+        write(i);
+        i=i+1;
+    }enquanto (i<3 || i>4);
 
 end;

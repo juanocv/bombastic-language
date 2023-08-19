@@ -7,6 +7,8 @@ public class MainTestClass{
 		Scanner key = new Scanner(System.in);
 		double a;
 		double b;
+		double i;
+		i = 0;
 		a = 1;
 		b = 10;
 		if (a>b && a<b || a>b) {
@@ -19,5 +21,10 @@ public class MainTestClass{
 		} else{
 			System.out.println(b);
 		}
+		do {
+			System.out.println(i);
+			i = i+1;
+		} while (i<3 || i>4);
+
 	}
 }
