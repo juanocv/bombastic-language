@@ -2,7 +2,7 @@ begin
     num a;
     txt t1;
 	
-	a = 1 ;
+	a = 1;
     t1 = "teste";
 
     write(a);
