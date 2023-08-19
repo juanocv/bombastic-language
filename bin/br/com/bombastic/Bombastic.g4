@@ -159,16 +159,17 @@ cmdattrib   : ID {verificaId(_input.LT(-1).getText());
               }
             ;
 
-cmdselecao  : 'when' AP {_exprContent = "";}
-                   expr
-                   OPREL {_exprContent += _input.LT(-1).getText();}
-                   expr  
-                   ({_exprContent += " ";}
-                    OPLOG {_exprContent += _input.LT(-1).getText();}
-                    {_exprContent += " ";}
-                    expr
-                    OPREL {_exprContent += _input.LT(-1).getText();}
-                    expr)*                            
+cmdselecao  : 'when' AP 
+                   {_exprDecision = "";}
+                   exprCond
+                   OPREL {_exprDecision += _input.LT(-1).getText();}
+                   exprCond  
+                   ({_exprDecision += " ";}
+                    OPLOG {_exprDecision += _input.LT(-1).getText();}
+                    {_exprDecision += " ";}
+                    exprCond
+                    OPREL {_exprDecision += _input.LT(-1).getText();}
+                    exprCond)*                            
                    FP 
                    AC
                    { 
@@ -190,7 +191,7 @@ cmdselecao  : 'when' AP {_exprContent = "";}
                     FC
                     {
                         listaFalse = stack.pop();
-                        CommandDecisao cmd = new CommandDecisao(_exprContent, listaTrue, listaFalse);
+                        CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
                         stack.peek().add(cmd);
                     }
                 )?
@@ -198,17 +199,16 @@ cmdselecao  : 'when' AP {_exprContent = "";}
 
 cmdrepeticao  : 'enquanto' 
 				   AP 
-                   ID { verificaAtr(_input.LT(-1).getText());
-                        BombasticVariable varwhile1 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				        varwhile1.setUsed();
-                        _exprDecision = _input.LT(-1).getText();}
+                   {_exprDecision = "";}
+                   exprCond
                    OPREL {_exprDecision += _input.LT(-1).getText();}
-                   (ID { verificaAtr(_input.LT(-1).getText());
-                         BombasticVariable varwhile2 = (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
-				         varwhile2.setUsed();}
-                        | NUMBER | TEXT | CHAR) { verificaAtr(_input.LT(-1).getText());
-                                                
-                                                _exprDecision += _input.LT(-1).getText();}
+                   exprCond  
+                   ({_exprDecision += " ";}
+                    OPLOG {_exprDecision += _input.LT(-1).getText();}
+                    {_exprDecision += " ";}
+                    exprCond
+                    OPREL {_exprDecision += _input.LT(-1).getText();}
+                    exprCond)*
                    FP 
                    AC
                    { 
@@ -234,21 +234,21 @@ cmdrepeticao  : 'enquanto'
                    
                    'enquanto' 
 				   AP 
-                   {_exprContent = "";}
-                   expr
-                   OPREL {_exprContent += _input.LT(-1).getText();}
-                   expr  
-                   ({_exprContent += " ";}
-                    OPLOG {_exprContent += _input.LT(-1).getText();}
-                    {_exprContent += " ";}
-                    expr
-                    OPREL {_exprContent += _input.LT(-1).getText();}
-                    expr)*
+                   {_exprDecision = "";}
+                   exprCond
+                   OPREL {_exprDecision += _input.LT(-1).getText();}
+                   exprCond  
+                   ({_exprDecision += " ";}
+                    OPLOG {_exprDecision += _input.LT(-1).getText();}
+                    {_exprDecision += " ";}
+                    exprCond
+                    OPREL {_exprDecision += _input.LT(-1).getText();}
+                    exprCond)*
                    FP
                    SC
                    {
                         listaLoop = stack.pop();
-                        CommandRepeticao cmd = new CommandRepeticao(_exprContent, listaLoop,true);
+                        CommandRepeticao cmd = new CommandRepeticao(_exprDecision, listaLoop,true);
                         stack.peek().add(cmd);
                    }
             ;
@@ -275,6 +275,31 @@ termo       : ID {verificaId(_input.LT(-1).getText());
             | CHAR
               {
                 _exprContent += _input.LT(-1).getText();
+              }
+            ;
+
+exprCond        : termoCond (OP {_exprDecision += _input.LT(-1).getText();} 
+                termoCond 
+                )*
+            ;
+
+termoCond       : ID {verificaId(_input.LT(-1).getText());
+                verificaAtr(_input.LT(-1).getText());
+                BombasticVariable varexpr= (BombasticVariable)symbolTable.get(_input.LT(-1).getText());
+                varexpr.setUsed();
+                _exprDecision += _input.LT(-1).getText();
+              } 
+            | NUMBER
+              {
+                _exprDecision += _input.LT(-1).getText();
+              }
+            | TEXT
+              {
+                _exprDecision += _input.LT(-1).getText();
+              }
+            | CHAR
+              {
+                _exprDecision += _input.LT(-1).getText();
               }
             ;
 

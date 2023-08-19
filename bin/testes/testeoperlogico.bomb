@@ -26,4 +26,10 @@ begin
         i=i+1;
     }enquanto (i<3 || i>4);
 
+    i=0;
+    faca{ 
+        write(i);
+        i=i+1;
+    }enquanto (i<3+3 && i>3);
+
 end;

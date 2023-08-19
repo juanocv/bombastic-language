@@ -19,3 +19,9 @@
 			i = i+1;
 		} while (i<3 || i>4);
 
+		i = 0;
+		do {
+			console.log(i);
+			i = i+1;
+		} while (i<3+3 && i>3);
+

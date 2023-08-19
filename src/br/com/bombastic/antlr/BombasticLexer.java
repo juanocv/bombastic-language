@@ -1,6 +1,6 @@
 package br.com.bombastic.antlr;
 
-// Generated from d:\Fam�lia\Ale\bombastic-language\src\br\com\bombastic\Bombastic.g4 by ANTLR 4.9.2
+// Generated from c:\Users\astan\OneDrive\Documentos\bombastic-language\src\br\com\bombastic\Bombastic.g4 by ANTLR 4.9.2
 
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
