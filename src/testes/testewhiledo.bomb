@@ -2,14 +2,14 @@ begin
     num i;
 	i = 0;
 
-    enquanto(i<3){
+    during(i<3){
     	write(i);
         i=i+1;
 	}
     i = 0;	
-	faca{ 
+	do{ 
         write(i);
         i=i+1;
-    }enquanto (i<3);
+    }during (i<3);
 
 end;

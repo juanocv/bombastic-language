@@ -198,7 +198,7 @@ cmdselecao  : 'when' AP
                 )?
             ;
 
-cmdrepeticao  : 'enquanto' 
+cmdrepeticao  : 'during' 
 				   AP 
                    {_exprRepetition = "";}
                    exprRep
@@ -224,7 +224,7 @@ cmdrepeticao  : 'enquanto'
                         stack.peek().add(cmd);
                    }
                    |
-                   'faca' 				   
+                   'do' 				   
                    AC
                    { 
                         curThread = new ArrayList<AbstractCommand>();
@@ -233,7 +233,7 @@ cmdrepeticao  : 'enquanto'
                    (cmd)+ 
                    FC
                    
-                   'enquanto' 
+                   'during' 
 				   AP 
                    {_exprRepetition = "";}
                    exprRep
