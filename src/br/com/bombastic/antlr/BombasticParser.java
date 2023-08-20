@@ -1,7 +1,5 @@
 package br.com.bombastic.antlr;
 
-// Generated from c:\Users\astan\OneDrive\Documentos\bombastic-language\src\br\com\bombastic\Bombastic.g4 by ANTLR 4.9.2
-
     import br.com.bombastic.datastructures.*;
     import br.com.bombastic.exceptions.*;
     import br.com.bombastic.ast.*;
@@ -45,8 +43,8 @@ public class BombasticParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'begin'", "'end'", "'num'", "'txt'", "'char'", "'read'", "'write'", 
-			"'when'", "'otherwise'", "'enquanto'", "'faca'", "'('", "')'", "';'", 
-			null, "'='", "','", "'{'", "'}'"
+			"'when'", "'otherwise'", "'during'", "'do'", "'('", "')'", "';'", null, 
+			"'='", "','", "'{'", "'}'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
