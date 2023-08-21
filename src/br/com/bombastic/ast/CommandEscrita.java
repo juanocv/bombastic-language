@@ -10,7 +10,6 @@ public class CommandEscrita extends AbstractCommand {
     
     @Override
     public String generateJavaCode() {
-        // TODO
         return "System.out.println("+id+");\n";
     }
     

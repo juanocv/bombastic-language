@@ -6,7 +6,7 @@ public class CommandRepeticao extends AbstractCommand {
     
     private String condition;
     private ArrayList<AbstractCommand> listaLoop;
-    private boolean isDoWhile;  // New field to indicate if it's a do/while loop
+    private boolean isDoWhile; 
     
     public CommandRepeticao(String condition, ArrayList<AbstractCommand> listaLoop, boolean isDoWhile) {
         this.condition = condition;
